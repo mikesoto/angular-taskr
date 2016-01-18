@@ -137,9 +137,39 @@ function teammatesCtrl($scope, $http, $log, $uibModal) {
 
 	//edit an existing teammate
 	vm.editTeam = function(teammateID){
-		vm.edit_team = vm.getTeammateByID(teammateID);
-		vm.displayEditTeammate();
+		vm.edit_teammate = vm.getTeammateByID(teammateID);
+		vm.openEditTeammateModal();
 	}
+
+	//open the edit teammate modal 
+	vm.openEditTeammateModal = function() {
+		vm.activeAct = 'teamlist';
+		//create a new instance of a modal using uibModal service
+		var modalInstance = $uibModal.open({
+			animation: true,
+			templateUrl: '/app/templates/modal-edit-teammate-form.html',
+			controller: 'eteamModal.Controller',
+			controllerAs: 'eteamModal',
+			size: 'lg',
+			resolve: {
+				//send existing teammates to check unique values
+				cur_teammates: function(){
+					return vm.teammates;
+				},
+				edit_teammate: function(){
+					return vm.edit_teammate;
+				}
+			}
+		});
+		//function to run at the end of modal promise
+		modalInstance
+			.result
+				.then(function(edit_teammate){
+					vm.sendEditTeam(edit_teammate);
+				},function(reason){
+					$log.info("Edit teammate modal canceled reason: "+reason);
+				});
+	};
 
 	//inserts a new teammate into the cached teammate list
 	vm.injectTeam = function(teamObj){
@@ -147,59 +177,25 @@ function teammatesCtrl($scope, $http, $log, $uibModal) {
 		vm.teammates.push(teamObj);
 	}
 
-	vm.sendEditTeam = function(){
-		vm.edit_form_error = false;
-		vm.error_editTeam_first_name = false;
-		vm.error_editTeam_last_name = false;
-		if(angular.element("#edit_first_name").val() == ''){
-			vm.error_editTeam_first_name = true;
-			vm.edit_form_error = true;
+	vm.sendEditTeam = function(edit_teammate){			
+		var req = {
+			method: 'PUT',
+			url: vm.apiURL+'teammates/'+edit_teammate.id,
+			data: edit_teammate
 		}
-		else if(angular.element("#edit_last_name").val() == ''){
-			vm.error_editTeam_last_name = true;
-			vm.edit_form_error = true;
-		}
-		if(!vm.edit_form_error){
-			//set the email_hash attribute for gravatars
-			if(angular.element("#edit_email").val() != ''){
-				var clean_mail = angular.element("#edit_email").val().toLowerCase();
-				angular.element("#edit_email_hash").val( CryptoJS.MD5( clean_mail.trim() ) );
-				console.log('email_hash : '+angular.element("#edit_email_hash").val() );
-			}else {
-				email_hash = CryptoJS.MD5("none@none.com");
-			}
-			var edit_taskID = angular.element("#edit_team_id").val();
-			vm.editTeamData = {
-				id : edit_taskID,
-				email_hash : angular.element("#edit_email_hash").val(),
-				first_name :	angular.element("#edit_first_name").val(),
-				last_name :	angular.element("#edit_last_name").val(),
-				company :	angular.element("#edit_company").val(),
-				email :	angular.element("#edit_email").val(),
-				phone :	angular.element("#edit_phone").val(),
-				description :	angular.element("#edit_description").val()
-			};
-
-			var req = {
-				method: 'PUT',
-				url: vm.apiURL+'teammates/'+edit_taskID,
-				data: vm.editTeamData
-			}
-			$http(req).then(function(response){
-				$log.log(response);
-				//clear the edit team data and form
-				vm.edit_team = {};
-				angular.element("#edit_team_form").trigger('reset');
-				//update the teamlist manually
-				vm.alterTeam(response.data);
-				//use cached version of the team list
-				vm.getTeamList(true);
-			}, function(err){
-				$log.error('error sending edit teammate:');
-				$log.error(err);
-			});
-
-		}
+		$http(req).then(function(response){
+			$log.log(response.data);
+			//clear the edit team data and form
+			vm.edit_teammate = {};
+			angular.element("#edit_team_form").trigger('reset');
+			//update the teamlist manually
+			vm.alterTeam(response.data);
+			//use cached version of the team list
+			vm.getTeamList(true);
+		}, function(err){
+			$log.error('error sending edit teammate:');
+			$log.error(err);
+		});
 	}
 
 	//updates a existing teammate in the cached teammates list

@@ -2,7 +2,6 @@ angular.module('angularTaskr')
 .controller('nteamModal.Controller', function($log, $scope, $http, $uibModalInstance, cur_teammates) {
 		
 		var vm = this;
-		vm.apiURL = 'http://localhost:3005/';
 		vm.teammates = cur_teammates;
 		//create the empty new_teammate object
 		//these key/values will be binded in the form with ng-model

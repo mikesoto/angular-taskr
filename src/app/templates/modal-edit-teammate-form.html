@@ -1,0 +1,46 @@
+<div class="modal-header">
+  <span class="pull-right glyphicon glyphicon-remove close-new-item-form" ng-click="nteamModal.dismiss('user canceled')"></span>
+  <h3 class="modal-title text-center">Edit Teammate {{ eteamModal.edit_teammate.id }}</h3>
+</div> 
+<div class="modal-body">
+  <form id="edit_teammate_form" name="edit_team_form" class="new-item-form">
+    <div class="col-sm-12">
+      <input type="hidden" id="edit_team_id" name="edit_team_id" value="{{eteamModal.edit_teammate.id}}">
+      <input type="hidden" id="edit_email_hash" name="edit_email_hash" value="{{eteamModal.edit_teammate.email_hash}}">
+      <div class="form-group">
+        <label for="edit_first_name">First Name <span class="req">*</span></label>
+        <input type="text" class="form-control" id="edit_first_name" name="edit_first_name" ng-model="eteamModal.edit_teammate.first_name" required>
+        <span class="form-error-msg" ng-show="eteamModal.error_editTeam_first_name">
+          <span>First Name is a required field.</span>
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="edit_last_name">Last Name <span class="req">*</span></label>
+        <input type="text" class="form-control" id="edit_last_name" name="edit_last_name" ng-model="eteamModal.edit_teammate.last_name" required>
+        <span class="form-error-msg" ng-show="eteamModal.error_editTeam_last_name">
+          <span>Last Name is a required field.</span>
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="edit_company">Company</label>
+        <input type="text" class="form-control" id="edit_company" name="edit_company" ng-model="eteamModal.edit_teammate.company">
+      </div>
+      <div class="form-group">
+        <label for="edit_email">Email</label>
+        <input type="text" class="form-control" id="edit_email" name="edit_email" ng-model="eteamModal.edit_teammate.email">
+      </div>
+      <div class="form-group">
+        <label for="edit_phone">Phone</label>
+        <input type="text" class="form-control" id="edit_phone" name="edit_phone" ng-model="eteamModal.edit_teammate.phone">
+      </div>
+      <div class="form-group">
+        <label for="edit_description">Description</label>
+        <textarea class="form-control" id="edit_description" name="edit_description" rows="2" ng-model="eteamModal.edit_teammate.description"></textarea>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="eteamModal.saveEditTeammate()">Update Teammate</button>
+    <button class="btn btn-warning" type="button" ng-click="eteamModal.dismiss('cancel button')">Cancel</button>
+</div>
