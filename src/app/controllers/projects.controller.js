@@ -45,7 +45,7 @@ function projectsCtrl($scope, $http, $uibModal, $log, tasks, projects) {
 	//send project to delete
 	vm.deleteProject = function(projID){
 		//check if the project has any active tasks
-		tasks.success(function(data) {
+		tasks_promise.success(function(data) {
 			var hasTasks = false;
 			vm.tasks = data;
 			for(var i = 0; i < vm.tasks.length; i++){

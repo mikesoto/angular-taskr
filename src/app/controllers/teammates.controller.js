@@ -168,15 +168,15 @@ function teammatesCtrl($scope, $http, $log) {
 			//set the email_hash attribute for gravatars
 			if(angular.element("#edit_email").val() != ''){
 				var clean_mail = angular.element("#edit_email").val().toLowerCase();
-				console.log('clean_mail: '+clean_mail);
-				var email_hash = CryptoJS.MD5(clean_mail);
+				angular.element("#edit_email_hash").val( CryptoJS.MD5( clean_mail.trim() ) );
+				console.log('email_hash : '+angular.element("#edit_email_hash").val() );
 			}else {
 				email_hash = CryptoJS.MD5("none@none.com");
 			}
 			var edit_taskID = angular.element("#edit_team_id").val();
 			vm.editTeamData = {
 				id : edit_taskID,
-				email_hash : email_hash,
+				email_hash : angular.element("#edit_email_hash").val(),
 				first_name :	angular.element("#edit_first_name").val(),
 				last_name :	angular.element("#edit_last_name").val(),
 				company :	angular.element("#edit_company").val(),

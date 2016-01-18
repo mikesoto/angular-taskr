@@ -297,17 +297,17 @@ app.put("/teammates/:id",cors(), function(req, res){
 				description: req.body.description,
 				email_hash: req.body.email_hash
 			};
-			//teammates[i] = edited_teammate;
+			teammates[i] = edited_teammate;
 		}
 	}
 	console.log(edited_teammate);
-	// //update the teammates.json file with the new data
-	// fs.writeFile('./data/teammates.json',JSON.stringify(teammates), function(err){
-	// 	if(err){
-	// 		throw(err);
-	// 	}
-	// 	console.log('Teammates Data File Updated');
-	// }); 
+	//update the teammates.json file with the new data
+	fs.writeFile('./data/teammates.json',JSON.stringify(teammates), function(err){
+		if(err){
+			throw(err);
+		}
+		console.log('Teammates Data File Updated');
+	}); 
 	//set the response to the updated json data
 	res.json(edited_teammate);
 }); 
