@@ -11,10 +11,10 @@ angular.module('angularTaskr')
 
 		//automatically adds the internal id to the end of the URL
 		vm.updateTaskURL = function(){
-			vm.edit_task.url = 'http://manoderecha.net/md/index.php/task/' + vm.edit_task.internal_id;
+			vm.edit_task.url = 'http://localhost/#/task/' + vm.edit_task.internal_id;
 			//resets to default value if the user blanks out the field
 			if( typeof(vm.edit_task.internal_id) === 'undefined' ){
-				vm.edit_task.url = 'http://manoderecha.net/md/index.php/task/';
+				vm.edit_task.url = 'http://localhost/#/task/';
 			}
 		}
 
