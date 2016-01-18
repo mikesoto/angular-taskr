@@ -8,7 +8,7 @@ angular.module('angularTaskr')
 		vm.priorityOptions = options.priority;
 		vm.new_task  = { 
 			internal_id : '',
-			url : 'http://localhost/#/task/',
+			url : 'http://localhost:3000/#/task/',
 			weight : 99,
 			status : 'pending',
 			priority : '1',
@@ -18,10 +18,10 @@ angular.module('angularTaskr')
 
 		//automatically adds the internal id to the end of the URL
 		vm.updateTaskURL = function(){
-			vm.new_task.url = 'http://localhost/#/task/' + vm.new_task.internal_id;
+			vm.new_task.url = 'http://localhost:3000/#/task/' + vm.new_task.internal_id;
 			//resets to default value if the user blanks out the field
 			if( typeof(vm.new_task.internal_id) === 'undefined' ){
-				vm.new_task.url = 'http://localhost/#/task/';
+				vm.new_task.url = 'http://localhost:3000/#/task/';
 			}
 		}
 
