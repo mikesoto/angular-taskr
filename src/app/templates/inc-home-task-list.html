@@ -9,7 +9,7 @@
 
         <div class="teammate-container">
           <div id="assigned_img_{{task.id}}">
-            <img class="teammate-image in-task" src="http://www.gravatar.com/avatar/{{ main.getTeammateByID(task.assigned).email_hash }}?d=retro" ng-click="main.toggleTaskAssigned(task.id)">
+            <img class="teammate-image in-task" src="http://www.gravatar.com/avatar/{{ main.getTeammateByID(task.assigned).email_hash }}?d=identicon" ng-click="main.toggleTaskAssigned(task.id)">
             <div class="assigned-label">{{ main.getTeammateByID(task.assigned).first_name }}</div>
           </div>
           <select id="assigned_select_{{task.id}}" class="assigned-select hide" ng-model="task.assigned" ng-change="main.quickSet(task.id,'assigned')">
