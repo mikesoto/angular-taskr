@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="row actions-menu" ng-show="main.tasksLoaded" ng-include="'app/templates/inc-home-nav-actions.html'"></div>
+  <div class="taskListContainer row">
+  	<div class="loading-tasks text-center" ng-show="!main.tasksLoaded"><h1>Loading Tasks <i class="fa fa-spinner fa-spin"></i></h1></div>
+    <task-list-header ng-show="main.tasksLoaded"></task-list-header>
+    <div ng-include="'app/templates/inc-home-task-list.html'"></div>
+  </div>
+</div>
+

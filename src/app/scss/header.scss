@@ -1,0 +1,26 @@
+.navbar{
+	padding-top:10px;
+	.navbar-header{
+		.navbar-brand{
+			margin-top:-10px;
+			img.logo{
+				display:inline-block;
+				width:40px;
+				height:auto;
+			}
+		}
+	}
+}
+.nav li.main-menu a {
+	border-radius:4px;
+	margin-left:10px;
+	padding:8px;
+	background-color:#fff;
+	box-shadow:inset 0px 0px 10px rgba(0,0,0,0.1);
+	text-decoration:none;
+	border:thin solid #ccc;
+	&.active{
+		background-color:#428BCA;
+		color:#fff;
+	}
+}

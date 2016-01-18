@@ -1,0 +1,126 @@
+<div class="container">
+  <div class="row actions-menu">
+  	<div class="col-sm-8">
+      <div class="action-btn-container">
+        <a ng-click="proj.displayProjList()" ng-class="{'active' : proj.activeAct === 'projlist'}">Project List</a> 
+  		  <a ng-click="proj.openNewProjModal()" ng-class="{'active' : proj.activeAct === 'projform'}">New Project</a>
+      </div>
+		</div>
+		<div class="col-sm-4 text-right">
+		  <ul>
+		    <li>Search: <input type="text" ng-model="search"></li>
+		  </ul>
+		</div>
+  </div>
+
+  <div class="projListContainer row">
+    <div class="container">
+      <div class="project item-list-header">
+        <div class="row">
+          <div class="col-sm-1">  
+            <strong>Codename</strong>
+          </div>
+          <div class="col-sm-2">
+            <strong>Name</strong>
+          </div>
+          <div class="col-sm-4">
+            <strong>Site URLs</strong>
+          </div>
+          <div class="col-sm-3">
+            <strong>Github Repository URL</strong>
+          </div>
+          <div class="col-sm-2 text-right">
+            <strong>Actions</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12" ng-repeat="project in proj.projects | filter:search | orderBy:'name'" ng-if="project.name != 'All'">
+      <div class="project" id="project_{{project.id}}">
+        <div class="row">
+          <div class="col-sm-1">  
+                <strong>[{{ project.codename }}]</strong>
+          </div>
+          <div class="col-sm-1">
+                <strong>{{ project.name }}</strong>
+          </div>
+          <div class="col-sm-4">
+            Dev: <a href="{{ project.dev_url }}" target="_blank"> {{ project.dev_url }}</a><br>
+            Prod: <a href="{{ project.prod_url }}" target="_blank"> {{ project.prod_url }}</a>
+          </div>
+          <div class="col-sm-4">
+            <a href="{{ project.repository }}" ng-if="project.repository !== ''" target="_blank"><i class="fa fa-github-alt"></i> {{ project.repository }}</a>
+          </div>
+          <div class="col-sm-2">
+            <div class="action-button delete-item" ng-click="proj.deleteProject(project.id)">
+              <span class="glyphicon glyphicon-remove"></span>
+            </div>
+            <div class="action-button edit-item" ng-click="proj.openEditProjModal(project.id)">
+              <span class="glyphicon glyphicon-pencil"></span>
+            </div>
+            <div class="action-button show-item-details" ng-click="proj.showProjDesc(project.id)">
+              <span class="glyphicon glyphicon-info-sign"></span>
+            </div>
+          </div>
+        </div>
+        <div id="details_{{project.id}}" class="row project-details hide">
+          <div class="col-sm-8">
+            <strong>Description:</strong><br>
+            <p>{{ project.description }}</p>
+          </div>
+          <div class="col-sm-4">
+            <strong>Created</strong>: {{ project.created }}<br>
+            <strong>Project ID</strong>: {{ project.id }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="editProjFormContainer row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <form id="edit_proj_form" name="edit_proj_form" class="new-item-form">
+        <div class="col-sm-12 text-center">
+          <span class="pull-right glyphicon glyphicon-remove close-new-item-form" ng-click="proj.displayProjList()"></span>
+          <h4>Edit Project</h4>
+        </div>
+        <div class="col-sm-12">
+          <input type="hidden" id="edit_proj_id" name="edit_proj_id" value="{{proj.edit_proj.id}}">
+          <div class="form-group">
+            <label for="edit_codename">Project Codename <span class="req">*</span></label>
+            <input type="text" class="form-control" id="edit_codename" name="edit_codename" ng-model="proj.edit_proj.codename" required>
+            <span class="form-error-msg" ng-show="proj.error_EditProj_codename">
+              <span>Project Codename is a required field.</span>
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="edit_name">Project Name <span class="req">*</span></label>
+            <input type="text" class="form-control" id="edit_name" name="edit_name" ng-model="proj.edit_proj.name" required>
+            <span class="form-error-msg" ng-show="proj.error_EditProj_name">
+              <span>Project Name is a required field.</span>
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="edit_dev_url">Dev URL</label>
+            <input type="text" class="form-control" id="edit_dev_url" name="edit_dev_url" ng-model="proj.edit_proj.dev_url">
+          </div>
+          <div class="form-group">
+            <label for="edit_prod_url">Production URL</label>
+            <input type="text" class="form-control" id="edit_prod_url" name="edit_prod_url" ng-model="proj.edit_proj.prod_url">
+          </div>
+          <div class="form-group">
+            <label for="edit_repository">Github Repository URL</label>
+            <input type="text" class="form-control" id="edit_repository" name="edit_repository" ng-model="proj.edit_proj.repository">
+          </div>
+          <div class="form-group">
+            <label for="edit_description">Description</label>
+            <textarea class="form-control" id="edit_description" name="edit_description" rows="2" ng-model="proj.edit_proj.description"></textarea>
+          </div>
+          <div class="col-sm-12 text-center">
+            <a class="btn btn-lg btn-primary save-new-item-btn" ng-click="proj.sendEditProj()">Update Project</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

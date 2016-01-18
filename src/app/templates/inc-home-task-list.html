@@ -1,0 +1,70 @@
+<div ng-class="{ 'hide' : main.filterOut(task.project,task.assigned,task.status,task.priority) }" ng-repeat="task in main.tasks | filter:search | orderBy:['priority','weight']:false" ng-if="task.status != 'completed'">
+  <div class="task {{task.status}}" id="task_{{task.id}}">
+    <div class="row">
+      <div class="col-sm-7 task-title-container">  
+          <tasktitle url="task.url" codename="main.getProjectByID(task.project).codename" intid="task.internal_id" cuttitle="main.cutTitle(task.title)"></tasktitle>
+          <a class="git-pr-link pull-right" ng-click="$event.preventDefault();main.openGitTaskModal(task.id)"><i class="fa fa-github-alt"></i></a>
+      </div>
+      <div class="col-sm-5">
+
+        <div class="teammate-container">
+          <div id="assigned_img_{{task.id}}">
+            <img class="teammate-image in-task" src="http://www.gravatar.com/avatar/{{ main.getTeammateByID(task.assigned).email_hash }}?d=retro" ng-click="main.toggleTaskAssigned(task.id)">
+            <div class="assigned-label">{{ main.getTeammateByID(task.assigned).first_name }}</div>
+          </div>
+          <select id="assigned_select_{{task.id}}" class="assigned-select hide" ng-model="task.assigned" ng-change="main.quickSet(task.id,'assigned')">
+            <option ng-repeat="teammate in main.teammateOptions" ng-if="teammate.first_name != 'All'" value="{{teammate.id}}" ng-selected="{{ task.assigned === teammate.id }}">{{teammate.first_name}}</option>
+          </select>
+        </div>
+        
+        
+        <div class="status-icon-container">
+          <div id="status_icon_{{task.id}}">
+            <i class="status-icon {{ main.getStatIcon(task.status) }}" ng-click="main.toggleTaskStatus(task.id)"></i><br>
+            <div class="status-label">{{ task.status }}</div>
+          </div>
+          <select id="status_select_{{task.id}}" class="status-select hide" ng-model="task.status" ng-change="main.quickSet(task.id,'status')">
+            <option ng-repeat="status in main.statusOptions" ng-if="status != 'All'" value="{{status}}" ng-selected="{{ task.status === status }}">{{status}}</option>
+          </select>
+        </div>
+        
+        <div class="priority-icon-container">
+          <div id="priority_icon_{{task.id}}">
+            <i class="priority-icon {{ main.getPiorityIcon(task.priority) }}" ng-click="main.toggleTaskPriority(task.id)"></i><br>
+            <div class="priority-label">{{ main.getPiorityName(task.priority) }}</div>
+          </div>
+          <select id="priority_select_{{task.id}}" class="priority-select hide" ng-model="task.priority" ng-change="main.quickSet(task.id,'priority')">
+            <option ng-repeat="priority in main.priorityOptions" ng-if="priority.level != '0'"  value="{{priority.level}}" ng-selected="{{ task.priority === priority.level }}">{{priority.name}}</option>
+          </select>
+        </div>
+
+        <input type="number" class="form-control input-item-weight in-task weight-select" id="weight" name="weight" value="{{task.weight}}" ng-model="task.weight" ng-blur="main.quickSet(task.id,'weight')">
+        
+        <!-- Action Buttons (Details,Edit,and Delete +updating)-->
+        <div class="action-button delete-item" ng-click="main.deleteTask(task.id)">
+          <span class="glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="action-button edit-item" ng-click="main.openEditTaskModal(task.id)">
+          <span class="glyphicon glyphicon-pencil"></span>
+        </div>
+        <div class="action-button show-item-details" ng-click="main.showTaskDesc(task.id)">
+          <span class="glyphicon glyphicon-info-sign"></span>
+        </div>
+        <div class="action-button item-updating" id="updating_{{task.id}}" >
+          <span class="glyphicon glyphicon-refresh"></span>
+        </div>
+      </div>
+    </div>
+    <div id="details_{{task.id}}" class="row task-details">
+      <div class="col-sm-9">
+        <p><strong>Problem:</strong> {{ task.description }}</p>
+        <p><strong>Solution:</strong> {{ task.solution }}</p>
+        <p><strong>Dev URL:</strong> <a href="{{ main.getProjectByID(task.project).dev_url }}" target="_blank">{{ main.getProjectByID(task.project).dev_url }}</a></p>
+        <p><strong>Prod URL:</strong> <a href="{{ main.getProjectByID(task.project).prod_url }}" target="_blank">{{ main.getProjectByID(task.project).prod_url }}</a></p>
+      </div>
+      <div class="col-sm-3">
+        <strong>Created</strong>: {{ task.created }}<br>
+      </div>
+    </div>
+  </div>
+</div>

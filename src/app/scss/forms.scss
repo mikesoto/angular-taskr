@@ -1,0 +1,30 @@
+.close-new-item-form{
+	padding-top:3px;
+	color:#aaa;
+	width:20px;
+	height:20px;
+	text-align:center;
+	&:hover{
+		cursor:pointer;
+	}
+}
+
+.form-error-msg{
+	color:red;
+	padding-top:8px;
+}
+
+.input-item-weight{
+	width:70px;
+	display:inline-block;
+}
+
+.new-item-form{
+	padding:20px;
+	height:660px;
+	border-radius:4px;
+	.save-new-item-btn{
+		padding:5px 30px;
+		margin-top:20px;
+	}
+}

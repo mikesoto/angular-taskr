@@ -1,0 +1,19 @@
+body {
+  text-align: center;
+  font-family: Arial, sans-serif; }
+  body h1 {
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    color: darkslateblue; }
+  body #tasks-container {
+    border: 2px solid blue;
+    width: 80%;
+    margin: 10px auto;
+    text-align: left;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); }
+    body #tasks-container .task-item {
+      padding: 0px 10px; }
+      body #tasks-container .task-item label {
+        font-weight: bold;
+        font-size: 18px;
+        color: darkslateblue;
+        font-style: italic; }

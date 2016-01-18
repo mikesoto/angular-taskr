@@ -1,0 +1,51 @@
+<div class="modal-header">
+  <span class="pull-right glyphicon glyphicon-remove close-new-item-form" ng-click="epModal.dismiss('user canceled')"></span>
+  <h3 class="modal-title text-center">Edit Project: {{epModal.edit_proj.id}}</h3>
+</div> 
+<div class="modal-body">
+  <form id="edit_proj_form" name="edit_proj_form" class="new-item-form">
+    <div class="col-sm-12">
+      <input type="hidden" id="edit_proj_id" name="edit_proj_id" value="{{epModal.edit_proj.id}}">
+      <div class="form-group">
+        <label for="edit_codename">Project Codename <span class="req">*</span></label>
+        <input type="text" class="form-control" id="edit_codename" name="edit_codename" ng-model="epModal.edit_proj.codename" required>
+        <div class="form-error-msg" ng-show="epModal.error_editProj_codename">
+          <span>Project Codename is a required field.</span>
+        </div>
+        <div class="form-error-msg" ng-show="epModal.error_editProj_codename_unique">
+          <span>Codename must be unique.</span>
+        </div>
+        <div class="form-error-msg" ng-show="epModal.error_editProj_codename_idInUse">
+          <span>There are tasks using the original codename.<br>Please delete or complete all tasks using this project codename before changing it.</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="edit_name">Project Name <span class="req">*</span></label>
+        <input type="text" class="form-control" id="edit_name" name="edit_name" ng-model="epModal.edit_proj.name" required>
+        <span class="form-error-msg" ng-show="epModal.error_editProj_name">
+          <span>Project Name is a required field.</span>
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="edit_dev_url">Dev URL</label>
+        <input type="text" class="form-control" id="edit_dev_url" name="edit_dev_url" ng-model="epModal.edit_proj.dev_url">
+      </div>
+      <div class="form-group">
+        <label for="edit_prod_url">Production URL</label>
+        <input type="text" class="form-control" id="edit_prod_url" name="edit_prod_url" ng-model="epModal.edit_proj.prod_url">
+      </div>
+      <div class="form-group">
+        <label for="edit_repository">Github Repository URL</label>
+        <input type="text" class="form-control" id="edit_repository" name="edit_repository" ng-model="epModal.edit_proj.repository">
+      </div>
+      <div class="form-group">
+        <label for="edit_description">Description</label>
+        <textarea class="form-control" id="edit_description" name="edit_description" rows="2" ng-model="epModal.edit_proj.description"></textarea>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="epModal.saveEditProj(epModal.edit_proj)">Update Project</button>
+    <button class="btn btn-warning" type="button" ng-click="epModal.dismiss('User Canceled')">Cancel</button>
+</div>

@@ -1,0 +1,186 @@
+<div class="container">
+  <div class="row actions-menu">
+  	<div class="col-sm-8">
+      <div class="action-btn-container">
+        <a ng-click="team.displayTeamList()" ng-class="{'active' : team.activeAct === 'teamlist'}">Teammates List</a>
+  		  <a ng-click="team.displayTeamForm()" ng-class="{'active' : team.activeAct === 'teamform'}">New Teammate</a>
+      </div>
+		</div>
+		<div class="col-sm-4 text-right">
+		  <ul>
+		    <li>Search: <input type="text" ng-model="search"></li>
+		  </ul>
+		</div>
+  </div>
+
+  <div class="teamListContainer row">
+    <div class="container">
+      <div class="teammate item-list-header">
+        <div class="row">
+          <div class="col-sm-1">
+            <strong>Gravatar</strong>
+          </div>
+          <div class="col-sm-1">  
+            <strong>ID</strong>
+          </div>
+          <div class="col-sm-2">
+            <strong>Name</strong>
+          </div>
+          <div class="col-sm-2">
+            <strong>Company</strong>
+          </div>
+          <div class="col-sm-2">
+            <strong>Email</strong>
+          </div>
+          <div class="col-sm-2">
+            <strong>Phone</strong>
+          </div>
+          <div class="col-sm-2 text-right">
+            <strong>Actions</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12" ng-repeat="teammate in team.teammates | filter:search | orderBy:'first_name'">
+      <div class="teammate" id="teammate_{{teammate.id}}">
+        <div class="row">
+          <div class="col-sm-1">
+           <img class="img-responsive teammate-image" src="http://www.gravatar.com/avatar/{{ teammate.email_hash }}?d=retro">
+          </div>
+          <div class="col-sm-1">  
+                <strong>[{{ teammate.id }}]</strong>
+          </div>
+          <div class="col-sm-2">
+                <strong>{{ teammate.first_name }} {{ teammate.last_name }}</strong>
+          </div>
+          <div class="col-sm-2">
+            <strong>{{ teammate.company }}</strong>
+          </div>
+          <div class="col-sm-2">
+                <strong><a href="mailto:{{ teammate.email }}">{{ teammate.email }}</a></strong>
+                <p>{{ teammate.email_hash }}</p>
+          </div>
+          <div class="col-sm-2">
+                <strong>{{ teammate.phone }}</strong>
+          </div>
+          <div class="col-sm-2">
+            <div class="action-button delete-item" ng-click="team.deleteTeammate(teammate.id)">
+              <span class="glyphicon glyphicon-remove"></span>
+            </div>
+            <div class="action-button edit-item" ng-click="team.editTeam(teammate.id)">
+              <span class="glyphicon glyphicon-pencil"></span>
+            </div>
+            <div class="action-button show-item-details" ng-click="team.showTeamDesc(teammate.id)">
+              <span class="glyphicon glyphicon-info-sign"></span>
+            </div>
+          </div>
+        </div>
+        <div id="details_{{teammate.id}}" class="row teammate-details hide">
+          <div class="col-sm-8">
+            <strong>Description:</strong><br>
+            <p>{{ teammate.description }}</p>
+          </div>
+          <div class="col-sm-4">
+            <strong>Created</strong>: {{ teammate.created }}<br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="newTeamFormContainer row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <form id="new_teammate_form" name="new_teammate_form" class="new-item-form">
+        <div class="col-sm-12 text-center">
+          <span class="pull-right glyphicon glyphicon-remove close-new-item-form" ng-click="team.displayTeamList()"></span>
+          <h4>Create New Teammate</h4>
+        </div>
+        <div class="col-sm-12">
+          <input type="hidden" id="email_hash" name="email_hash" value="">
+          <div class="form-group">
+            <label for="first_name">First Name <span class="req">*</span></label>
+            <input type="text" class="form-control" id="first_name" name="first_name" required>
+            <span class="form-error-msg" ng-show="team.error_newTeam_first_name">
+              <span>First Name is a required field.</span>
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="last_name">Last Name <span class="req">*</span></label>
+            <input type="text" class="form-control" id="last_name" name="last_name" required>
+            <span class="form-error-msg" ng-show="team.error_newTeam_last_name">
+              <span>Last Name is a required field.</span>
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="company">Company</label>
+            <input type="text" class="form-control" id="company" name="company">
+          </div>
+          <div class="form-group">
+            <label for="email">Email </label>
+            <input type="text" class="form-control" id="email" name="email">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone </label>
+            <input type="text" class="form-control" id="phone" name="phone">
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="2"></textarea>
+          </div>
+          <div class="col-sm-12 text-center">
+            <a class="btn btn-lg btn-primary save-new-item-btn" ng-click="team.sendNewTeam()">Save New Teammate</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="editTeamFormContainer row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <form id="edit_team_form" name="edit_team_form" class="new-item-form">
+        <div class="col-sm-12 text-center">
+          <span class="pull-right glyphicon glyphicon-remove close-new-item-form" ng-click="team.displayTeamList()"></span>
+          <h4>Edit Teammate</h4>
+        </div>
+        <div class="col-sm-12">
+          <input type="hidden" id="edit_team_id" name="edit_team_id" value="{{team.edit_team.id}}">
+          <input type="hidden" id="edit_email_hash" name="edit_email_hash" value="{{team.edit_team.email_hash}}">
+          <div class="form-group">
+            <label for="edit_first_name">First Name <span class="req">*</span></label>
+            <input type="text" class="form-control" id="edit_first_name" name="edit_first_name" ng-model="team.edit_team.first_name" required>
+            <span class="form-error-msg" ng-show="team.error_editTeam_first_name">
+              <span>First Name is a required field.</span>
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="edit_last_name">Last Name <span class="req">*</span></label>
+            <input type="text" class="form-control" id="edit_last_name" name="edit_last_name" ng-model="team.edit_team.last_name" required>
+            <span class="form-error-msg" ng-show="team.error_editTeam_last_name">
+              <span>Last Name is a required field.</span>
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="edit_company">Company</label>
+            <input type="text" class="form-control" id="edit_company" name="edit_company" ng-model="team.edit_team.company">
+          </div>
+          <div class="form-group">
+            <label for="edit_email">Email</label>
+            <input type="text" class="form-control" id="edit_email" name="edit_email" ng-model="team.edit_team.email">
+          </div>
+          <div class="form-group">
+            <label for="edit_phone">Phone</label>
+            <input type="text" class="form-control" id="edit_phone" name="edit_phone" ng-model="team.edit_team.phone">
+          </div>
+          <div class="form-group">
+            <label for="edit_description">Description</label>
+            <textarea class="form-control" id="edit_description" name="edit_description" rows="2" ng-model="team.edit_team.description"></textarea>
+          </div>
+          <div class="col-sm-12 text-center">
+            <a class="btn btn-lg btn-primary save-new-item-btn" ng-click="team.sendEditTeam()">Update Teammate</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>

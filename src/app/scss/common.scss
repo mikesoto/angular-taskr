@@ -1,0 +1,69 @@
+.nav, .pagination, .carousel, .panel-title a { 
+	cursor: pointer; 
+}
+
+.item-list-header{
+	background-color:#555;
+	color:#fff;
+}
+
+.action-button{
+	float:right;
+	width:25px;
+	height:25px;
+	text-align: center;
+	border:thin solid #ddd;
+	border-radius:4px;
+	margin-left:5px;
+	background-color:#fff;
+	font-size:14px;
+	padding-top:3px;
+	&:hover{
+		cursor:pointer;
+		background-color:#4088C6;
+		color:#fff;
+	}
+}
+
+.item-updating{
+	display:none;
+	border:none;
+	padding-top:4px;
+	padding-right:1px;
+	color:#fff;
+	background-color:red;
+}
+
+.show-item-details{
+	color:#ed9d1c;
+}
+
+.edit-item{
+	color:#428BCA;
+}
+
+.delete-item{
+	color:red;
+}
+
+.header-label{
+	display:inline-block;
+	padding:0px 5px;
+	font-weight:bold;
+	&.assigned{
+		min-width:90px;
+	}
+	&.status{
+		min-width:80px;
+	}
+	&.priority{
+		min-width:75px;
+	}
+	&.weight{
+		min-width:60px;
+	}
+	&.actions{
+		float:right;
+		padding-right:20px;
+	}
+}

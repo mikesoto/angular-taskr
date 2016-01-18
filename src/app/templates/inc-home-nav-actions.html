@@ -1,0 +1,39 @@
+
+  <div class="col-sm-8">
+    <div class="action-btn-container">
+      <a ng-click="main.displayTaskList()" ng-class="{'active' : main.activeAct === 'tasklist'}">Task List</a> 
+      <a ng-click="$event.preventDefault();main.openNewTaskModal()" ng-class="{'active' : main.activeAct === 'taskform'}">New Task</a>
+      <a ng-click="main.toggleFilterForm()" class="filter-toggle" ng-class="{'active' : main.filtersOn}">Filter Task List</a>
+    </div>
+  </div>
+  <div class="col-sm-4 text-right">
+    <ul>
+      <li>Search: <input type="text" ng-model="search"></li>
+    </ul>
+  </div>
+  <div class="col-sm-12 filters-container" ng-show="main.filtersOn">
+    <div class="col-sm-3">
+      Project:<br>
+      <select id="project-filter-select" ng-model="main.filter_project" ng-change="main.getTaskList(true)">
+        <option ng-repeat="project in main.projectOptions" value="{{project.id}}">{{project.name}}</option>
+      </select>
+    </div>
+    <div class="col-sm-3">
+      Teammate:<br>
+      <select id="teammate-filter-select" ng-model="main.filter_assigned" ng-change="main.getTaskList(true)">
+        <option ng-repeat="teammate in main.teammateOptions" value="{{teammate.id}}">{{teammate.first_name}}</option>
+      </select>
+    </div>
+    <div class="col-sm-3">
+      Status:<br>
+      <select id="status-filter-select" ng-model="main.filter_status" ng-change="main.getTaskList(true)">
+        <option ng-repeat="status in main.statusOptions" value="{{status}}">{{status}}</option>
+      </select>
+    </div>
+    <div class="col-sm-3">
+      Priority:<br>
+      <select id="priority-filter-select" ng-model="main.filter_priority" ng-change="main.getTaskList(true)">
+        <option ng-repeat="priority in main.priorityOptions" value="{{priority.level}}">{{priority.name}}</option>
+      </select>
+    </div>
+  </div>

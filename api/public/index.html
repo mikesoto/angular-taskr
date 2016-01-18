@@ -1,0 +1,24 @@
+<html>
+	<head>
+		<title>Tasks Data Viewer</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+	</head>
+	<body>
+		<h1>Tasks Data Viewer</h1>
+
+		<div id="form-container">
+			<form id="add-task-form" action="/" method="post">
+				<label>Internal ID:</label>
+				<input type="text" id="int_id" name="int_id" required/>
+				&nbsp; &nbsp; &nbsp; 
+				<label>Title</label>
+				<input type="text" id="title" name="title" required/>
+				&nbsp; &nbsp; &nbsp; 
+				<button>Add Task</button>
+			</form>
+		</div>
+		
+		<div id="tasks-container"></div>
+		<script type="text/javascript" src="js/bundle.js"></script>
+	</body>
+</html>

@@ -1,0 +1,78 @@
+<div class="modal-header">
+  <span class="pull-right glyphicon glyphicon-remove close-new-item-form" ng-click="ntModal.dismiss()"></span>
+  <h3 class="modal-title text-center">Create a new task</h3>
+</div> 
+<div class="modal-body">
+  <form id="new_task_form" name="new_task_form" class="new-item-form">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="project">Project <span class="req">*</span></label>
+        <select class="project-select" id="project" name="project" ng-model="ntModal.new_task.project">
+          <option value=""></option>
+          <option ng-repeat="project in ntModal.projectOptions" ng-if="project.name != 'All'" value="{{project.id}}">{{project.name}}</option>
+        </select>
+        <span class="form-error-msg" ng-show="ntModal.error_newTask_project">
+          <span>Project is a required field.</span>
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="internal_id">Internal ID <span class="req">*</span></label>
+        <input type="text" class="form-control" id="internal_id" name="internal_id" ng-model="ntModal.new_task.internal_id" ng-change="ntModal.updateTaskURL()" required>
+        <span class="form-error-msg" ng-show="ntModal.error_newTask_intID">
+          <span>Internal ID is a required field.</span>
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="url">Task URL <span class="req">*</span></label>
+        <input type="text" class="form-control" id="url" name="url" ng-model="ntModal.new_task.url">
+        <span class="form-error-msg" ng-show="ntModal.error_newTask_url">
+          <span>URL is a required field.</span>
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="title">Title <span class="req">*</span></label>
+        <input type="text" class="form-control" id="title" name="title" ng-model="ntModal.new_task.title" required>
+        <span class="form-error-msg" ng-show="ntModal.error_newTask_title">
+          <span>Title is a required field.</span>
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="assigned">Assigned To <span class="req">*</span></label>
+        <select class="assigned-select" id="assigned" name="assigned" ng-model="ntModal.new_task.assigned">
+          <option ng-repeat="teammate in ntModal.teammateOptions" ng-if="teammate.first_name != 'All'" value="{{teammate.id}}">{{teammate.first_name}}</option>
+        </select>
+        <span class="form-error-msg" ng-show="ntModal.error_newTask_assigned">
+          <span>Assigned To is a required field.</span>
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="status">Status <span class="req">*</span></label>
+        <select class="status-select" id="status" name="status" ng-model="ntModal.new_task.status">
+          <option ng-repeat="status in ntModal.statusOptions" ng-if="status != 'All'" value="{{status}}">{{status}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="priority">Priority <span class="req">*</span></label>
+        <select class="priority-select" id="priority" name="priority" ng-model="ntModal.new_task.priority">
+          <option ng-repeat="priority in ntModal.priorityOptions" ng-if="priority.name != 'All'" value="{{priority.level}}">{{priority.name}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="weight">Weight <span class="req">*</span></label>
+        <input type="text" class="form-control input-item-weight" id="weight" name="weight" ng-model="ntModal.new_task.weight">
+      </div>
+      <div class="form-group">
+        <label for="description">Problem</label>
+        <textarea class="form-control" id="description" name="description" rows="3" ng-model="ntModal.new_task.description"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="solution">Solution</label>
+        <textarea class="form-control" id="solution" name="solution" rows="3" ng-model="ntModal.new_task.solution"></textarea>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ntModal.saveNewTask()">Save New Task</button>
+    <button class="btn btn-warning" type="button" ng-click="ntModal.dismiss('cancel button')">Cancel</button>
+</div>

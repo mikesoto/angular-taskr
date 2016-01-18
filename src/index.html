@@ -1,0 +1,68 @@
+<!doctype html>
+<html ng-app="angularTaskr">
+  <head>
+    <meta charset="utf-8">
+    <title>angularTaskr</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <!-- build:css({.tmp/serve,src}) styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- run `gulp inject` to automatically populate bower styles dependencies -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css({.tmp/serve,src}) styles/app.css -->
+    <!-- inject:css -->
+    <!-- css files will be automatically insert here -->
+    <!-- endinject -->
+    <!-- endbuild -->
+  </head>
+  <body>
+    <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <header ng-include="'app/templates/header.html'"></header>
+    <div ui-view></div>
+    <footer ng-include="'app/templates/footer.html'"></footer>
+    <!-- build:js(src) scripts/vendor.js -->
+    <!-- bower:js -->
+    <!-- run `gulp inject` to automatically populate bower script dependencies -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+
+    <!-- SCRIPTS -->
+    <script src="assets/scripts/crypto-js.min.js"></script>
+    <script src="assets/scripts/md5-lib.js"></script>
+
+    <!-- Modules -->
+    <script src="app/index.module.js"></script>
+
+    <!-- Controllers -->
+    <script src="app/controllers/main.controller.js"></script>
+    <script src="app/controllers/projects.controller.js"></script>
+    <script src="app/controllers/teammates.controller.js"></script>
+    <script src="app/controllers/new-task-modal.controller.js"></script>
+    <script src="app/controllers/new-project-modal.controller.js"></script>
+    <script src="app/controllers/edit-task-modal.controller.js"></script>
+    <script src="app/controllers/edit-project-modal.controller.js"></script>
+    <script src="app/controllers/git-task-modal.controller.js"></script>
+
+    <!-- Services -->
+    <script src="app/services/tasks.js"></script>
+    <script src="app/services/projects.js"></script>
+    <script src="app/services/teammates.js"></script>
+
+    <!-- Directives -->
+    <script src="app/directives/tasktitle.js"></script>
+    <script src="app/directives/taskListHeader.js"></script>
+
+    <!-- inject:partials -->
+    <!-- angular templates will be automatically converted in js and inserted here -->
+    <!-- endinject -->
+    <!-- endbuild -->
+
+  </body>
+</html>

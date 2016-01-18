@@ -1,0 +1,24 @@
+<div class="modal-header">
+  <h2 class="modal-title">Git Pull Request info for Task: {{gtModal.gtask.internal_id}}</h2>
+  <h3><i class="fa fa-github-alt"></i> <a href="{{ gtModal.project.repository }}" target="_blank">{{ gtModal.project.repository }}</a></h3>
+</div>
+<div class="modal-body">
+	<p>Copy and Paste this code in your pull request description:</p>
+  <pre id="pr-text" ng-click="gtModal.selectPRText()">
+## Related Tasks
+&lt;a href="{{ gtModal.gtask.url}}" target="_blank"&gt;&lt;strong&gt;[{{ gtModal.gtask.internal_id }}] {{ gtModal.gtask.title }}&lt;/strong&gt;&lt;/a&gt;
+
+## Problems
+{{gtModal.gtask.description}}
+
+## Solutions
+{{gtModal.gtask.solution}}
+
+## Tests / Screenshots
+
+
+  </pre>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="gtModal.dismiss()">OK</button>
+</div>

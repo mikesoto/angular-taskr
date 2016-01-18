@@ -1,0 +1,47 @@
+<div class="modal-header">
+  <span class="pull-right glyphicon glyphicon-remove close-new-item-form" ng-click="ntModal.dismiss()"></span>
+  <h3 class="modal-title text-center">Create a new Project</h3>
+</div> 
+<div class="modal-body">
+  <form id="new_proj_form" name="new_proj_form" class="new-item-form">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="name">Project Name <span class="req">*</span></label>
+        <input type="text" class="form-control" id="name" name="name" ng-model="ntModal.new_project.name" required>
+        <span class="form-error-msg" ng-show="ntModal.error_newProj_name">
+          <span>Project Name is a required field.</span>
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="codename">Project Codename <span class="req">*</span></label>
+        <input type="text" class="form-control" id="codename" name="codename" ng-model="ntModal.new_project.codename" required>
+        <span class="form-error-msg" ng-show="ntModal.error_newProj_codename">
+          <span>Codename is a required field.</span>
+        </span>
+        <span class="form-error-msg" ng-show="ntModal.error_newProj_codename_unique">
+          <span>Codename must be unique.</span>
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="dev_url">Development URL</label>
+        <input type="text" class="form-control" id="dev_url" name="dev_url" ng-model="ntModal.new_project.dev_url">
+      </div>
+      <div class="form-group">
+        <label for="prod_url">Production URL</label>
+        <input type="text" class="form-control" id="prod_url" name="prod_url" ng-model="ntModal.new_project.prod_url">
+      </div>
+      <div class="form-group">
+        <label for="repository">Github Repository URL</label>
+        <input type="text" class="form-control" id="repository" name="repository" ng-model="ntModal.new_project.repository">
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" name="description" rows="2" ng-model="ntModal.new_project.description"></textarea>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ntModal.saveNewProj()">Save New Project</button>
+    <button class="btn btn-warning" type="button" ng-click="ntModal.dismiss('cancel button')">Cancel</button>
+</div>

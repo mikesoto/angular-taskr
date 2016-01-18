@@ -1,0 +1,81 @@
+<div class="modal-header">
+  <span class="pull-right glyphicon glyphicon-remove close-new-item-form" ng-click="etModal.dismiss('user canceled')"></span>
+  <h3 class="modal-title text-center">Edit Task: {{etModal.edit_task.internal_id}}</h3>
+</div> 
+<div class="modal-body">
+  <form id="edit_task_form" name="edit_task_form" class="new-item-form">
+      <div class="col-sm-12">
+        <input type="hidden" name="edit_task_id" value="{{etModal.edit_task.id}}">
+        <div class="form-group">
+          <label for="edit_project">Project <span class="req">*</span></label>
+          <select class="project-select" id="edit_project" name="edit_project" ng-model="etModal.edit_task.project">
+            <option ng-repeat="project in etModal.projectOptions" ng-if="project.name != 'All'" value="{{project.id}}">{{project.name}}</option>
+          </select>
+          <span class="form-error-msg" ng-show="etModal.error_editTask_project">
+            <span>Project is a required field.</span>
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="edit_internal_id">Internal ID <span class="req">*</span></label>
+          <input type="text" class="form-control" id="edit_internal_id" name="edit_internal_id" ng-model="etModal.edit_task.internal_id" required>
+          <span class="form-error-msg" ng-show="etModal.error_editTask_intID">
+            <span>Internal ID is a required field.</span>
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="edit_url">Task URL <span class="req">*</span></label>
+          <input type="text" class="form-control" id="edit_url" name="edit_url" value="http://manoderecha.net/md/index.php/task/{{etModal.edit_task.internal_id}}">
+          <span class="form-error-msg" ng-show="etModal.error_editTask_url">
+            <span>URL is a required field.</span>
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="edit_title">Title <span class="req">*</span></label>
+          <input type="text" class="form-control" id="edit_title" name="edit_title" ng-model="etModal.edit_task.title" required>
+          <span class="form-error-msg" ng-show="etModal.error_editTask_title">
+            <span>Title is a required field.</span>
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="edit_assigned">Assigned To <span class="req">*</span></label>
+          <select class="assigned-select" id="edit_assigned" name="edit_assigned" ng-model="etModal.edit_task.assigned">
+            <option ng-repeat="teammate in etModal.teammateOptions" ng-if="teammate.first_name != 'All'" value="{{teammate.id}}">{{teammate.first_name}}</option>
+          </select>
+          <span class="form-error-msg" ng-show="etModal.error_editTask_assigned">
+            <span>Assigned To is a required field.</span>
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="edit_description">Problem</label>
+          <textarea class="form-control" id="edit_description" name="edit_description" rows="2" ng-model="etModal.edit_task.description">{{etModal.edit_task.description}}</textarea>
+        </div>
+        <div class="form-group">
+          <label for="edit_solution">Solution</label>
+          <textarea class="form-control" id="edit_solution" name="edit_solution" rows="2" ng-model="etModal.edit_task.solution">{{etModal.edit_task.solution}}</textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="edit_status">Status <span class="req">*</span></label>
+          <select class="status-select" id="edit_status" name="edit_status" ng-model="etModal.edit_task.status">
+            <option ng-repeat="status in etModal.statusOptions" ng-if="status != 'All'" value="{{status}}">{{status}}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="edit_priority">Priority <span class="req">*</span></label>
+          <select class="priority-select" id="edit_priority" name="edit_priority" ng-model="etModal.edit_task.priority">
+            <option ng-repeat="priority in etModal.priorityOptions" ng-if="priority.name != 'All'" value="{{priority.level}}">{{priority.name}}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="edit_weight">Weight <span class="req">*</span></label>
+          <input type="text" class="form-control input-item-weight" id="edit_weight" name="edit_weight" value="{{etModal.edit_task.weight}}">
+        </div>
+      </div>
+    </form> 
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="etModal.saveEditTask(etModal.edit_task)">Update Task</button>
+    <button class="btn btn-warning" type="button" ng-click="etModal.dismiss('User Canceled')">Cancel</button>
+</div>
