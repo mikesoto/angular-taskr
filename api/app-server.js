@@ -140,8 +140,6 @@ app.post("/teammates",cors(), function(req, res){
 	console.log(req.body);
 	//the new teammate object from the post body
 	nteam = req.body;
-	//set the id of the teammate
-	nteam.id = (nteam.first_name.substring(0,2) + nteam.last_name.substring(0,2) + nteam.company.substring(0,2)).toLowerCase() + teammates.length;
 	//push the new teammate into the teammates data array
 	teammates.push(nteam);
 	//update the teammates.json file with the new data

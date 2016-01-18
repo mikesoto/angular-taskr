@@ -1,7 +1,7 @@
 angular.module('angularTaskr')
 .controller('teamCtrl.Controller', teammatesCtrl);
 
-function teammatesCtrl($scope, $http, $log) {
+function teammatesCtrl($scope, $http, $log, $uibModal) {
 	//set controller vars
 	var vm = this;
 	vm.apiURL = 'http://localhost:3005/';
@@ -27,20 +27,6 @@ function teammatesCtrl($scope, $http, $log) {
 		angular.element(".teamListContainer").hide();
 	}
 
-	vm.displayTeamList = function(){
-		vm.activeAct = 'teamlist';
-		angular.element(".editTeamFormContainer").hide();
-		angular.element(".newTeamFormContainer").hide();
-		angular.element(".teamListContainer").show();
-	}
-
-	vm.displayEditTeammate = function(){
-		vm.activeAct = 'teamlist';
-		angular.element(".editTeamFormContainer").show();
-		angular.element(".newTeamFormContainer").hide();
-		angular.element(".teamListContainer").hide();
-	};
-
 	//show or hide a teammate details section
 	vm.showTeamDesc = function(teammateID){
 		var target = angular.element('#details_'+teammateID);
@@ -51,51 +37,60 @@ function teammatesCtrl($scope, $http, $log) {
 		}
 	};
 
-	//process the new teammate form
-	vm.sendNewTeam = function(){
-		vm.error_newTeam_first_name = false;
-		vm.error_newTeam_last_name = false;
-		vm.form_error = false;
-		if(angular.element("#first_name").val() == ''){
-			vm.error_newTeam_first_name = true;
-			vm.form_error = true;
-		}
-		else if(angular.element("#last_name").val() == ''){
-			vm.error_newTeam_last_name = true;
-			vm.form_error = true;
-		}
-		//set the email_hash attribute for gravatars
-		if(angular.element("#email").val() != ''){
-			var tm_email = angular.element("#email").val().toLowerCase();
-			angular.element("#email_hash").val( CryptoJS.MD5( tm_email.trim() ) );
-		}
+	vm.displayTeamList = function(){
+		vm.activeAct = 'teamlist';
+		angular.element(".editTeamFormContainer").hide();
+		angular.element(".newTeamFormContainer").hide();
+		angular.element(".teamListContainer").show();
+	}
 
-		if(!vm.form_error){
-			vm.newTeamData = {
-				email_hash : angular.element("#email_hash").val(),
-				first_name :	angular.element("#first_name").val(),
-				last_name :	angular.element("#last_name").val(),
-				company :	angular.element("#company").val(),
-				email :	angular.element("#email").val(),
-				phone :	angular.element("#phone").val(),
-				description :	angular.element("#description").val()
-			};
-
-			var req = {
-				method: 'POST',
-				url: vm.apiURL+'teammates/',
-				data: vm.newTeamData
+	//open the new teammate modal 
+	vm.openNewTeamModal = function() {
+		vm.activeAct = 'teamform';
+		//create a new instance of a modal using uibModal service
+		var modalInstance = $uibModal.open({
+			animation: true,
+			templateUrl: '/app/templates/modal-new-team-form.html',
+			controller: 'nteamModal.Controller',
+			controllerAs: 'nteamModal',
+			size: 'lg',
+			resolve: {
+				//send existing teammates to check unique values
+				cur_teammates: function(){
+					return vm.teammates;
+				}
 			}
-			$http(req).then(function(response){
-				angular.element("#new_teammate_form").trigger('reset');
-				$log.log(response);
-				vm.injectTeam(response.data);
-				vm.getTeamList(true);
-			}, function(err){
-				$log.error('error sending new teammate:');
-				$log.error(err);
-			});
+		});
+		//function to run at the end of modal promise
+		modalInstance
+			.result
+				.then(function(new_team){
+					vm.sendNewTeam(new_team);
+				},function(reason){
+					$log.info("New teammate modal canceled reason: "+reason);
+					vm.activeAct = 'teamlist';
+				});
+	};
+
+	
+
+	//process the new teammate form
+	vm.sendNewTeam = function(new_team){
+		$log.info('sending new teammate: ');
+		$log.info(new_team);
+		var req = {
+			method: 'POST',
+			url: vm.apiURL+'teammates/',
+			data: new_team
 		}
+		$http(req).then(function(response){
+			angular.element("#new_teammate_form").trigger('reset');
+			vm.injectTeam(response.data);
+			vm.getTeamList(true);
+		}, function(err){
+			$log.error('error sending new teammate:');
+			$log.error(err);
+		});
 	}
 
 	//send teammate to delete

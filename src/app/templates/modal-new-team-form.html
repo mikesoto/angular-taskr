@@ -1,0 +1,45 @@
+<div class="modal-header">
+  <span class="pull-right glyphicon glyphicon-remove close-new-item-form" ng-click="nteamModal.dismiss('user canceled')"></span>
+  <h3 class="modal-title text-center">Create a new Teammate</h3>
+</div> 
+<div class="modal-body">
+  <form id="new_teammate_form" name="new_teammate_form" class="new-item-form">
+    <div class="col-sm-12">
+      <input type="hidden" id="email_hash" name="email_hash" value="">
+      <div class="form-group">
+        <label for="first_name">First Name <span class="req">*</span></label>
+        <input type="text" class="form-control" id="first_name" name="first_name" ng-model="nteamModal.new_teammate.first_name" required>
+        <span class="form-error-msg" ng-show="nteamModal.error_newTeam_first_name">
+          <span>First Name is a required field.</span>
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="last_name">Last Name <span class="req">*</span></label>
+        <input type="text" class="form-control" id="last_name" name="last_name" ng-model="nteamModal.new_teammate.last_name" required>
+        <span class="form-error-msg" ng-show="nteamModal.error_newTeam_last_name">
+          <span>Last Name is a required field.</span>
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="company">Company</label>
+        <input type="text" class="form-control" id="company" name="company" ng-model="nteamModal.new_teammate.company">
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" id="email" name="email" ng-model="nteamModal.new_teammate.email">
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <input type="text" class="form-control" id="phone" name="phone" ng-model="nteamModal.new_teammate.phone">
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" name="description" rows="2" ng-model="nteamModal.new_teammate.description"></textarea>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="nteamModal.saveNewTeam()">Save New Teammate</button>
+    <button class="btn btn-warning" type="button" ng-click="nteamModal.dismiss('cancel button')">Cancel</button>
+</div>

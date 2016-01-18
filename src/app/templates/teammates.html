@@ -3,7 +3,7 @@
   	<div class="col-sm-8">
       <div class="action-btn-container">
         <a ng-click="team.displayTeamList()" ng-class="{'active' : team.activeAct === 'teamlist'}">Teammates List</a>
-  		  <a ng-click="team.displayTeamForm()" ng-class="{'active' : team.activeAct === 'teamform'}">New Teammate</a>
+  		  <a ng-click="team.openNewTeamModal()" ng-class="{'active' : team.activeAct === 'teamform'}">New Teammate</a>
       </div>
 		</div>
 		<div class="col-sm-4 text-right">
@@ -58,7 +58,7 @@
           </div>
           <div class="col-sm-2">
                 <strong><a href="mailto:{{ teammate.email }}">{{ teammate.email }}</a></strong>
-                <p>{{ teammate.email_hash }}</p>
+                <!-- <p>{{ teammate.email_hash }}</p> -->
           </div>
           <div class="col-sm-2">
                 <strong>{{ teammate.phone }}</strong>
@@ -85,53 +85,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
-
-  <div class="newTeamFormContainer row">
-    <div class="col-sm-6 col-sm-offset-3">
-      <form id="new_teammate_form" name="new_teammate_form" class="new-item-form">
-        <div class="col-sm-12 text-center">
-          <span class="pull-right glyphicon glyphicon-remove close-new-item-form" ng-click="team.displayTeamList()"></span>
-          <h4>Create New Teammate</h4>
-        </div>
-        <div class="col-sm-12">
-          <input type="hidden" id="email_hash" name="email_hash" value="">
-          <div class="form-group">
-            <label for="first_name">First Name <span class="req">*</span></label>
-            <input type="text" class="form-control" id="first_name" name="first_name" required>
-            <span class="form-error-msg" ng-show="team.error_newTeam_first_name">
-              <span>First Name is a required field.</span>
-            </span>
-          </div>
-          <div class="form-group">
-            <label for="last_name">Last Name <span class="req">*</span></label>
-            <input type="text" class="form-control" id="last_name" name="last_name" required>
-            <span class="form-error-msg" ng-show="team.error_newTeam_last_name">
-              <span>Last Name is a required field.</span>
-            </span>
-          </div>
-          <div class="form-group">
-            <label for="company">Company</label>
-            <input type="text" class="form-control" id="company" name="company">
-          </div>
-          <div class="form-group">
-            <label for="email">Email </label>
-            <input type="text" class="form-control" id="email" name="email">
-          </div>
-          <div class="form-group">
-            <label for="phone">Phone </label>
-            <input type="text" class="form-control" id="phone" name="phone">
-          </div>
-          <div class="form-group">
-            <label for="description">Description</label>
-            <textarea class="form-control" id="description" name="description" rows="2"></textarea>
-          </div>
-          <div class="col-sm-12 text-center">
-            <a class="btn btn-lg btn-primary save-new-item-btn" ng-click="team.sendNewTeam()">Save New Teammate</a>
-          </div>
-        </div>
-      </form>
     </div>
   </div>
 
