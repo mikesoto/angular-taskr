@@ -23,14 +23,14 @@
           <div class="col-sm-2">
             <strong>Name</strong>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-3 text-left">
             <strong>Site URLs</strong>
           </div>
-          <div class="col-sm-3">
+          <div class="col-sm-4 text-left">
             <strong>Git Repository URL</strong>
           </div>
           <div class="col-sm-2 text-right">
-            <strong>Actions</strong>
+            <strong>Actions &nbsp; </strong>
           </div>
         </div>
       </div>
@@ -41,15 +41,15 @@
           <div class="col-sm-1">  
                 <strong>[{{ project.codename }}]</strong>
           </div>
-          <div class="col-sm-1">
+          <div class="col-sm-2">
                 <strong>{{ project.name }}</strong>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-3">
             Dev: <a href="{{ project.dev_url }}" target="_blank"> {{ project.dev_url }}</a><br>
             Prod: <a href="{{ project.prod_url }}" target="_blank"> {{ project.prod_url }}</a>
           </div>
           <div class="col-sm-4">
-            <a href="{{ project.repository }}" ng-if="project.repository !== ''" target="_blank"><i class="fa fa-github-alt"></i> {{ project.repository }}</a>
+            <a href="{{ project.repository }}" ng-if="project.repository !== ''" target="_blank">{{ project.repository }}</a>
           </div>
           <div class="col-sm-2">
             <div class="action-button delete-item" ng-click="proj.deleteProject(project.id)">
