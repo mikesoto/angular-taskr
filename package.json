@@ -1,7 +1,10 @@
 {
   "name": "angularTaskr",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "kerberos": "0.0.18",
+    "mongodb": "^2.1.4"
+  },
   "scripts": {
     "test": "gulp test"
   },

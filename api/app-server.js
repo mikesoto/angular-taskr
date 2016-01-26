@@ -4,6 +4,24 @@ var path = require('path');
 var cors = require('cors');
 var bodyParser = require('body-parser');
 
+/* Setup the Database Dependacies */
+var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
+var assert = require('assert');
+var dbeez = require('./dbeeznes');
+
+//the url to connect to the local mongo database
+var mongo_url = 'mongodb://localhost:27017/taskr';
+
+MongoClient.connect(mongo_url, function(err, db) {
+  assert.equal(null, err);
+  console.log("Connected correctly to Local Mongo DB server on port 27017");
+ //  index_params = { "cuisine": 1, "address.zipcode": -1 };
+	// dbeez.makeIndex(db, 'restaurants', index_params, function(results){
+ //  	db.close();
+ //  });
+});
+
 /* create express application instance*/
 var app = express();
 
@@ -54,6 +72,8 @@ app.use(cors());
 
 //=============== GET Endpoint for tasks ===============
 app.get("/tasks", function(req, res){
+
+
 	/* respond with json data */
 	res.json(tasks); 
 });
@@ -309,8 +329,6 @@ app.put("/teammates/:id",cors(), function(req, res){
 	//set the response to the updated json data
 	res.json(edited_teammate);
 }); 
-
-
 
 /* listen on port 3005 */
 app.listen(3005);
